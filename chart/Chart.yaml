@@ -1,0 +1,21 @@
+apiVersion: v2
+name: gateway
+description: Helm chart for deploying Istio gateways
+type: application
+
+version: 1.22.2-bb.0
+appVersion: 1.22.2
+
+sources:
+- https://github.com/istio/istio
+icon: https://istio.io/latest/favicons/android-192x192.png
+keywords:
+- istio
+- gateways
+
+annotations:
+  helm.sh/images: |
+    - name: proxyv2
+      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.22.2
+
+
