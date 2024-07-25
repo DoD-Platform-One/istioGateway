@@ -237,17 +237,6 @@
             "Never"
           ]
         },
-        "imagePullSecrets": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              }
-            }
-          }
-        },
         "podDisruptionBudget": {
           "type": "object",
           "properties": {
