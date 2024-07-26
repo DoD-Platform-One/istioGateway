@@ -1,3 +1,4 @@
+<!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
 ![Version: 1.22.2-bb.0](https://img.shields.io/badge/Version-1.22.2--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.22.2](https://img.shields.io/badge/AppVersion-1.22.2-informational?style=flat-square)
@@ -7,6 +8,10 @@ Helm chart for deploying Istio gateways
 ## Upstream References
 
 * <https://github.com/istio/istio>
+
+### Upstream Release Notes
+
+- [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.22.x/announcing-1.22.2)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -34,9 +39,6 @@ helm install gateway chart/
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image.repository | string | `"registry1.dso.mil/ironbank/opensource/istio/proxyv2"` |  |
-| image.tag | string | `"1.22.2"` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
 | defaults.name | string | `""` |  |
 | defaults.revision | string | `""` |  |
 | defaults.replicaCount | string | `nil` |  |
@@ -101,3 +103,8 @@ helm install gateway chart/
 ## Contributing
 
 Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in contributing.
+
+---
+
+_This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
