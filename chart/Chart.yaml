@@ -14,8 +14,7 @@ keywords:
 - gateways
 
 annotations:
-  helm.sh/images: |
-    - name: proxyv2
-      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.22.2
+  bigbang.dev/upstreamReleaseNotesMarkdown: |
+    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.22.x/announcing-1.22.2)
 
 
