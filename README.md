@@ -22,6 +22,8 @@ Helm chart for deploying Istio gateways
 * Kubernetes Cluster deployed
 * Kubernetes config installed in `~/.kube/config`
 * Helm installed
+* [istio-base](https://repo1.dso.mil/big-bang/apps/sandbox/istio-base) installed to `istio-system` namespace
+* [istiod](https://repo1.dso.mil/big-bang/apps/sandbox/istiod) installed to `istio-system` namespace
 
 Install Helm
 
@@ -29,10 +31,43 @@ https://helm.sh/docs/intro/install/
 
 ## Deployment
 
-* Clone down the repository
-* cd into directory
 ```bash
-helm install gateway chart/
+git clone https://repo1.dso.mil/big-bang/apps/sandbox/istio-gateway.git && \
+cd istio-gateway
+```
+```bash
+helm upgrade \
+  --install istio-ingressgateway ./chart \
+  --create-namespace \
+  --namespace istio-ingress
+```
+
+A manual deployment of `istioGateway` via helm requires the creation of secrets for Registry1 image pulls. Do this by replacing `REGISTRY1-AUTH-KEY` with your own personal authentication token and applying these two secrets:
+
+```yaml
+apiVersion: v1
+data:
+  .dockerconfigjson: REGISTRY1-AUTH-KEY
+kind: Secret
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{".dockerconfigjson":"REGISTRY1-AUTH-KEY"},"kind":"Secret","metadata":{"annotations":{},"creationTimestamp":null,"name":"registry1","namespace":"istio-ingress"},"type":"kubernetes.io/dockerconfigjson"}
+  name: registry1
+  namespace: istio-ingress
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+data:
+  .dockerconfigjson: REGISTRY1-AUTH-KEY
+kind: Secret
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{".dockerconfigjson":"REGISTRY1-AUTH-KEY"},"kind":"Secret","metadata":{"annotations":{},"creationTimestamp":null,"name":"private-registry","namespace":"istio-ingress"},"type":"kubernetes.io/dockerconfigjson"}
+  name: private-registry
+  namespace: istio-ingress
+type: kubernetes.io/dockerconfigjson
 ```
 
 ## Values
