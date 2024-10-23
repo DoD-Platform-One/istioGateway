@@ -3,8 +3,8 @@ name: gateway
 description: Helm chart for deploying Istio gateways
 type: application
 
-version: 1.22.2-bb.0
-appVersion: 1.22.2
+version: 1.23.2-bb.0
+appVersion: 1.23.2
 
 sources:
 - https://github.com/istio/istio
@@ -15,6 +15,6 @@ keywords:
 
 annotations:
   bigbang.dev/upstreamReleaseNotesMarkdown: |
-    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.22.x/announcing-1.22.2)
+    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.23.2/announcing-1.23.2)
 
 
