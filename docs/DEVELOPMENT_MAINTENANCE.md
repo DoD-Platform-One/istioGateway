@@ -1,7 +1,16 @@
 # How to upgrade the Istio Gateway Package chart
 
 1. Checkout the branch that renovate created. This branch will have the image tag updates and typically some other necessary version changes that you will want. You can either work off of this branch or branch off of it.
-1. Update the dashboards via `kpt`. You should be able to run `kpt pkg update chart@<v1.x.x> --strategy alpha-git-patch` (ex: `kpt pkg update chart@v1.22.2 --strategy alpha-git-patch`).
+1. Update via `kpt`:
+    ```bash
+    # update to VERSION of the upstream chart auto-merging in changes
+    kpt pkg update gateway@1.23.2 --strategy alpha-git-patch
+    ```
+    Or if you'd like to pull down upstream to a fresh `DIR` and manually merge in the changes yourself:
+    ```bash
+    # get a fresh VERSION of the upstream chart to DIR
+    kpt pkg get "https://github.com/istio/istio.git/manifests/charts/gateway@1.23.2" ./fresh
+    ```
 1. Update version references for the Chart. `version` should be `<version>-bb.0` (ex: `1.22.2-bb.0`) and `appVersion` should be `<version>` (ex: `1.22.2`). Also validate that the BB annotation for the main Istio version is updated (leave the Tetrate version as-is unless you are updating those images).
 1. Add a changelog entry for the update. At minimum mention updating the image versions.
 1. Update the readme following the [steps in Gluon](https://repo1.dso.mil/platform-one/big-bang/apps/library-charts/gluon/-/blob/master/docs/bb-package-readme.md).
