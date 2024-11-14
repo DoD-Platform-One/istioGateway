@@ -105,9 +105,7 @@ defaults:
   # Default behavior: latest images will be Always else IfNotPresent
   imagePullPolicy: ""
 
-  # Must be set for any cluster configured with private docker registry.
-  # This secret will need to be manually created if this chart is deployed individually
-  imagePullSecrets: [] # <-- This is set globally within the istiod chart/values.yaml defaults.global.imagePullSecrets
+  imagePullSecrets: []
 
   # This value is used to configure a Kubernetes PodDisruptionBudget for the gateway.
   #
