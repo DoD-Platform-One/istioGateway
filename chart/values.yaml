@@ -105,7 +105,8 @@ defaults:
   # Default behavior: latest images will be Always else IfNotPresent
   imagePullPolicy: ""
 
-  imagePullSecrets: []
+  imagePullSecrets:
+    - name: private-registry
 
   # This value is used to configure a Kubernetes PodDisruptionBudget for the gateway.
   #
