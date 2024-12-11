@@ -153,3 +153,8 @@ defaults:
   # Refer to https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
   # for more detail.
   priorityClassName: ""
+  
+  # If enterprise is set to true FIPs Tetrate Image Distro images are used
+  enterprise: false
+  tidHub: registry1.dso.mil/ironbank/tetrate/istio
+  tidTag: 1.23.2-tetratefips-v0

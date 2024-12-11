@@ -76,6 +76,12 @@ This is a high-level list of modifications that Big Bang has made to the upstrea
         - },
     ```
 
+## chart/templates/deployment.yaml
+-  Added templating for Tetrate FIPs image integration lines 56-60.
+
+## chart/values.yaml
+- Added enterprise boolean, tidHub and tidTag for Tetrate FIPs image integraton lines 157-160.
+
 
 ## Cluster setup
 
