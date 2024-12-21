@@ -158,3 +158,7 @@ defaults:
   enterprise: false
   tidHub: registry1.dso.mil/ironbank/tetrate/istio
   tidTag: 1.23.2-tetratefips-v0
+
+# default gateway domain (for pipelines)
+gateway:
+  domain: dev.bigbang.mil

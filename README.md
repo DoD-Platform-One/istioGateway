@@ -1,13 +1,13 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.23.2-bb.1](https://img.shields.io/badge/Version-1.23.2--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.2](https://img.shields.io/badge/AppVersion-1.23.2-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
+![Version: 1.23.2-bb.2](https://img.shields.io/badge/Version-1.23.2--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.2](https://img.shields.io/badge/AppVersion-1.23.2-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
 ## Upstream References
 
-- <https://github.com/istio/istio>
+* <https://github.com/istio/istio>
 
 ## Upstream Release Notes
 
@@ -104,6 +104,7 @@ helm install gateway chart/
 | defaults.enterprise | bool | `false` |  |
 | defaults.tidHub | string | `"registry1.dso.mil/ironbank/tetrate/istio"` |  |
 | defaults.tidTag | string | `"1.23.2-tetratefips-v0"` |  |
+| gateway.domain | string | `"dev.bigbang.mil"` |  |
 
 ## Contributing
 

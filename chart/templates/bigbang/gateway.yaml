@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: {{ .Release.Name }}
+  namespace: istio-gateway
+  labels:
+    helm.toolkit.fluxcd.io/name: istio
+    helm.toolkit.fluxcd.io/namespace: bigbang
+spec:
+  selector:
+    app: {{ .Release.Name }}
+  servers:
+    - hosts:
+        - '*.{{ .Values.gateway.domain }}'
+      port:
+        name: http
+        number: 8080
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - '*.{{ .Values.gateway.domain }}'
+      port:
+        name: https
+        number: 8443
+        protocol: HTTPS
+      tls:
+        credentialName: public-cert
+        mode: SIMPLE
+
+
