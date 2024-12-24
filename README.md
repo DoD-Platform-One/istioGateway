@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.23.2-bb.2](https://img.shields.io/badge/Version-1.23.2--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.2](https://img.shields.io/badge/AppVersion-1.23.2-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
+![Version: 1.23.2-bb.3](https://img.shields.io/badge/Version-1.23.2--bb.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.2](https://img.shields.io/badge/AppVersion-1.23.2-informational?style=flat-square) ![Maintenance Track: unknown](https://img.shields.io/badge/Maintenance_Track-unknown-red?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -64,11 +64,11 @@ helm install gateway chart/
 | defaults.service.ports[1].name | string | `"http2"` |  |
 | defaults.service.ports[1].port | int | `80` |  |
 | defaults.service.ports[1].protocol | string | `"TCP"` |  |
-| defaults.service.ports[1].targetPort | int | `80` |  |
+| defaults.service.ports[1].targetPort | int | `8080` |  |
 | defaults.service.ports[2].name | string | `"https"` |  |
 | defaults.service.ports[2].port | int | `443` |  |
 | defaults.service.ports[2].protocol | string | `"TCP"` |  |
-| defaults.service.ports[2].targetPort | int | `443` |  |
+| defaults.service.ports[2].targetPort | int | `8443` |  |
 | defaults.service.annotations | object | `{}` |  |
 | defaults.service.loadBalancerIP | string | `""` |  |
 | defaults.service.loadBalancerSourceRanges | list | `[]` |  |
