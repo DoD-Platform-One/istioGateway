@@ -42,9 +42,13 @@ istio.io/rev: {{ . | quote }}
 {{- end }}
 {{- end }}
 
+{{/*
+Bigbang defined to remain consistent with previously existing authorization policies
+*/}}
 {{- define "gateway.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- .Values.serviceAccount.name | default (include "gateway.name" .)    }}
+{{- $defaultSericeAccount := printf "%s-%s" (include "gateway.name" .) "ingressgateway-service-account" -}}
+{{- .Values.serviceAccount.name | default $defaultSericeAccount }}
 {{- else }}
 {{- .Values.serviceAccount.name | default "default" }}
 {{- end }}
