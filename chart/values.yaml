@@ -157,7 +157,7 @@ defaults:
   # If enterprise is set to true FIPs Tetrate Image Distro images are used
   enterprise: false
   tidHub: registry1.dso.mil/ironbank/tetrate/istio
-  tidTag: 1.23.2-tetratefips-v0
+  tidTag: 1.23.3-tetratefips-v0
 
 # default gateway domain (for pipelines)
 gateway:
