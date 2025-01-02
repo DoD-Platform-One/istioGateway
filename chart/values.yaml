@@ -43,7 +43,7 @@ defaults:
     # Type of service. Set to "None" to disable the service entirely
     type: LoadBalancer
     ports:
-    - name: status-port
+    - name: tcp-status-port
       port: 15021
       protocol: TCP
       targetPort: 15021
@@ -100,6 +100,11 @@ defaults:
 
   # If specified, the gateway will act as a network gateway for the given network.
   networkGateway: ""
+
+  # Setting ironbank image
+  image:
+    repo: registry1.dso.mil/ironbank/opensource/istio/proxyv2
+    tag: 1.23.3
 
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent
@@ -159,6 +164,28 @@ defaults:
   tidHub: registry1.dso.mil/ironbank/tetrate/istio
   tidTag: 1.23.3-tetratefips-v0
 
-# default gateway domain (for pipelines)
+mtls:
+  # -- STRICT = Allow only mutual TLS traffic,
+  # PERMISSIVE = Allow both plain text and mutual TLS traffic
+  mode: STRICT
+
+# Settings for istio gateway
 gateway:
-  domain: dev.bigbang.mil
+  servers:
+    - hosts:
+        - '*.dev.bigbang.mil'
+      port:
+        name: http
+        number: 8080
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - '*.dev.bigbang.mil'
+      port:
+        name: https
+        number: 8443
+        protocol: HTTPS
+      tls:
+        credentialName: public-cert
+        mode: SIMPLE

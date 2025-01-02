@@ -57,7 +57,7 @@ spec:
           image: "{{ .Values.tidHub }}/{{ "proxyv2" }}:{{ .Values.tidTag }}"
           {{- else }}
           # "auto" will be populated at runtime by the mutating webhook. See https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#customizing-injection
-          image: auto
+          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
           {{- end }}
           {{- with .Values.imagePullPolicy }}
           imagePullPolicy: {{ . }}
@@ -91,6 +91,11 @@ spec:
           - containerPort: 15090
             protocol: TCP
             name: http-envoy-prom
+          {{- range $ports := .Values.service.ports }}
+          - containerPort: {{ $ports.targetPort }}
+            protocol: {{ $ports.protocol }}
+            name: {{ $ports.name }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}

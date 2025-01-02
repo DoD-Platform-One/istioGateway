@@ -40,7 +40,26 @@ This is a high-level list of modifications that Big Bang has made to the upstrea
     ```
 
 ## chart/templates/deployment.yaml
--  Added templating for Tetrate FIPs image integration lines 56-60.
+- Added templating for Tetrate FIPs image integration lines 56-60.
+- Modified the following section under `spec.template.spec.containers.ports` to suppress warnings from Kiali as the gateway deployment was not listening on the same ports as its associated service:
+
+```
+          {{- range $ports := .Values.service.ports }}
+          - containerPort: {{ $ports.targetPort }}
+            protocol: {{ $ports.protocol }}
+            name: {{ $ports.name }}
+          {{- end }}
+```
 
 ## chart/values.yaml
 - Added enterprise boolean, tidHub and tidTag for Tetrate FIPs image integraton lines 157-160.
+- Prepended default `status-port` to `tcp-status-port` under `service.ports` section to appease Kiali warning.
+- Added gateway which is used to pass down required values into `chart/templates/bigbang/gateway.yaml`
+- Added the following `mtls` section to enable mutual TLS used in `chart/templates/bigbang/peerAuthentication.yaml`:
+
+```
+mtls:
+  # -- STRICT = Allow only mutual TLS traffic,
+  # PERMISSIVE = Allow both plain text and mutual TLS traffic
+  mode: STRICT
+```

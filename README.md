@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.23.3-bb.0](https://img.shields.io/badge/Version-1.23.3--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.3](https://img.shields.io/badge/AppVersion-1.23.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 1.23.3-bb.1](https://img.shields.io/badge/Version-1.23.3--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.3](https://img.shields.io/badge/AppVersion-1.23.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -57,7 +57,7 @@ helm install gateway chart/
 | defaults.securityContext | object | `{}` |  |
 | defaults.containerSecurityContext | object | `{}` |  |
 | defaults.service.type | string | `"LoadBalancer"` |  |
-| defaults.service.ports[0].name | string | `"status-port"` |  |
+| defaults.service.ports[0].name | string | `"tcp-status-port"` |  |
 | defaults.service.ports[0].port | int | `15021` |  |
 | defaults.service.ports[0].protocol | string | `"TCP"` |  |
 | defaults.service.ports[0].targetPort | int | `15021` |  |
@@ -94,6 +94,8 @@ helm install gateway chart/
 | defaults.topologySpreadConstraints | list | `[]` |  |
 | defaults.affinity | object | `{}` |  |
 | defaults.networkGateway | string | `""` |  |
+| defaults.image.repo | string | `"registry1.dso.mil/ironbank/opensource/istio/proxyv2"` |  |
+| defaults.image.tag | string | `"1.23.3"` |  |
 | defaults.imagePullPolicy | string | `""` |  |
 | defaults.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | defaults.podDisruptionBudget | object | `{}` |  |
@@ -103,8 +105,19 @@ helm install gateway chart/
 | defaults.priorityClassName | string | `""` |  |
 | defaults.enterprise | bool | `false` |  |
 | defaults.tidHub | string | `"registry1.dso.mil/ironbank/tetrate/istio"` |  |
-| defaults.tidTag | string | `"1.23.2-tetratefips-v0"` |  |
-| gateway.domain | string | `"dev.bigbang.mil"` |  |
+| defaults.tidTag | string | `"1.23.3-tetratefips-v0"` |  |
+| mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
+| gateway.servers[0].hosts[0] | string | `"*.dev.bigbang.mil"` |  |
+| gateway.servers[0].port.name | string | `"http"` |  |
+| gateway.servers[0].port.number | int | `8080` |  |
+| gateway.servers[0].port.protocol | string | `"HTTP"` |  |
+| gateway.servers[0].tls.httpsRedirect | bool | `true` |  |
+| gateway.servers[1].hosts[0] | string | `"*.dev.bigbang.mil"` |  |
+| gateway.servers[1].port.name | string | `"https"` |  |
+| gateway.servers[1].port.number | int | `8443` |  |
+| gateway.servers[1].port.protocol | string | `"HTTPS"` |  |
+| gateway.servers[1].tls.credentialName | string | `"public-cert"` |  |
+| gateway.servers[1].tls.mode | string | `"SIMPLE"` |  |
 
 ## Contributing
 
