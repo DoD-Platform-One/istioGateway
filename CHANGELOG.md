@@ -4,7 +4,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.23.3-bb.0] - 2024-12-23
+## [1.23.3-bb.1] - 2024-12-31
+
+### Added
+
+- Updated gateway to use values from template
+- Modified deployment.yaml to use service values on container as well
+- Added missing peerAuthentication and authorizationPolicy
+- Updated values.yaml to include settings for the above
+- Updated image to IronBank image as the auto setting was problematic
+
+## [1.23.3-bb.0] - 2024-12-26
 
 ### Added
 
