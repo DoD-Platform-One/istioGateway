@@ -54,7 +54,8 @@ This is a high-level list of modifications that Big Bang has made to the upstrea
 ## chart/values.yaml
 - Added enterprise boolean, tidHub and tidTag for Tetrate FIPs image integraton lines 157-160.
 - Prepended default `status-port` to `tcp-status-port` under `service.ports` section to appease Kiali warning.
-- Added gateway which is used to pass down required values into `chart/templates/bigbang/gateway.yaml`
+- Added gateway which is used to pass down required values into `chart/templates/bigbang/gateway.yaml`.
+- Added `networkPolicies`  section to enable default network policies and allow custom additional network policies to be added.
 - Added the following `mtls` section to enable mutual TLS used in `chart/templates/bigbang/peerAuthentication.yaml`:
 
 ```
