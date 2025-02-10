@@ -1,13 +1,13 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.23.3-bb.1](https://img.shields.io/badge/Version-1.23.3--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.3](https://img.shields.io/badge/AppVersion-1.23.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 1.23.3-bb.2](https://img.shields.io/badge/Version-1.23.3--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.23.3](https://img.shields.io/badge/AppVersion-1.23.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
 ## Upstream References
 
-* <https://github.com/istio/istio>
+- <https://github.com/istio/istio>
 
 ## Upstream Release Notes
 
@@ -107,6 +107,9 @@ helm install gateway chart/
 | defaults.tidHub | string | `"registry1.dso.mil/ironbank/tetrate/istio"` |  |
 | defaults.tidTag | string | `"1.23.3-tetratefips-v0"` |  |
 | mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
+| networkPolicies.enabled | bool | `true` |  |
+| networkPolicies.additionalPolicies | list | `[]` |  |
+| monitoring.enabled | bool | `false` |  |
 | gateway.servers[0].hosts[0] | string | `"*.dev.bigbang.mil"` |  |
 | gateway.servers[0].port.name | string | `"http"` |  |
 | gateway.servers[0].port.number | int | `8080` |  |

@@ -169,6 +169,10 @@ mtls:
   # PERMISSIVE = Allow both plain text and mutual TLS traffic
   mode: STRICT
 
+networkPolicies:
+  enabled: true
+  additionalPolicies: []
+
 # Settings for istio gateway
 gateway:
   servers:
