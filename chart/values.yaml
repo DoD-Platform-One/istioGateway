@@ -1,6 +1,6 @@
-# "defaults" is a workaround for Helm limitations. Users should NOT set ".defaults" explicitly, but rather directly set the fields internally.
-# For instance, instead of `--set defaults.foo=bar`, just set `--set foo=bar`.
-defaults:
+# "_internal_defaults_do_not_set" is a workaround for Helm limitations. Users should NOT set "._internal_defaults_do_not_set" explicitly, but rather directly set the fields internally.
+# For instance, instead of `--set _internal_defaults_do_not_set.foo=bar``, just set `--set foo=bar`.
+_internal_defaults_do_not_set:
   # Name allows overriding the release name. Generally this should not be set
   name: ""
   # revision declares which revision this gateway is a part of
@@ -39,32 +39,6 @@ defaults:
   securityContext: {}
   containerSecurityContext: {}
 
-  service:
-    # Type of service. Set to "None" to disable the service entirely
-    type: LoadBalancer
-    ports:
-    - name: tcp-status-port
-      port: 15021
-      protocol: TCP
-      targetPort: 15021
-    - name: http2
-      port: 80
-      protocol: TCP
-      targetPort: 8080
-    - name: https
-      port: 443
-      protocol: TCP
-      targetPort: 8443
-    annotations: {}
-    loadBalancerIP: ""
-    loadBalancerSourceRanges: []
-    externalTrafficPolicy: ""
-    externalIPs: []
-    ipFamilyPolicy: ""
-    ipFamilies: []
-    ## Whether to automatically allocate NodePorts (only for LoadBalancers).
-    # allocateLoadBalancerNodePorts: false
-
   resources:
     requests:
       cpu: 100m
@@ -84,8 +58,21 @@ defaults:
   # Pod environment variables
   env: {}
 
+  # Deployment Update strategy
+  strategy: {}
+  
+  # Sets the Deployment minReadySeconds value
+  minReadySeconds:
+  
+  # Optionally configure a custom readinessProbe. By default the control plane
+  # automatically injects the readinessProbe. If you wish to override that
+  # behavior, you may define your own readinessProbe here.
+  readinessProbe: {}
+
   # Labels to apply to all resources
-  labels: {}
+  labels:
+    # By default, don't enroll gateways into the ambient dataplane
+    "istio.io/dataplane-mode": none
 
   # Annotations to apply to all resources
   annotations: {}
@@ -104,7 +91,7 @@ defaults:
   # Setting ironbank image
   image:
     repo: registry1.dso.mil/ironbank/opensource/istio/proxyv2
-    tag: 1.23.3
+    tag: 1.25.1
 
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent
@@ -143,6 +130,7 @@ defaults:
   #
   podDisruptionBudget: {}
 
+  # Sets the per-pod terminationGracePeriodSeconds setting.
   terminationGracePeriodSeconds: 30
 
   # A list of `Volumes` added into the Gateway Pods. See
@@ -159,11 +147,6 @@ defaults:
   # for more detail.
   priorityClassName: ""
   
-  # If enterprise is set to true FIPs Tetrate Image Distro images are used
-  enterprise: false
-  tidHub: registry1.dso.mil/ironbank/tetrate/istio
-  tidTag: 1.23.3-tetratefips-v0
-
 mtls:
   # -- STRICT = Allow only mutual TLS traffic,
   # PERMISSIVE = Allow both plain text and mutual TLS traffic
@@ -193,3 +176,28 @@ gateway:
       tls:
         credentialName: public-cert
         mode: SIMPLE
+
+# bb defaults
+service:
+  # Type of service. Set to "None" to disable the service entirely
+  type: LoadBalancer
+  ports:
+  - name: tcp-status-port
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
+  - name: http2
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+  annotations: {}
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  externalTrafficPolicy: ""
+  externalIPs: []
+  ipFamilyPolicy: ""
+  ipFamilies: []

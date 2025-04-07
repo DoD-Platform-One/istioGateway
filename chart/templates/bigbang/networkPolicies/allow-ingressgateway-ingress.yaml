@@ -13,7 +13,7 @@ spec:
     - ipBlock:
         cidr: 0.0.0.0/0
     ports:
-    {{- range $servicePorts := .Values.defaults.service.ports }}
+    {{- range $servicePorts := .Values.service.ports }}
     - port: {{ $servicePorts.targetPort }}
       protocol: {{ $servicePorts.protocol }}
     {{- end }}
