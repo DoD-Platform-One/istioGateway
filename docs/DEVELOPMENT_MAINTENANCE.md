@@ -4,14 +4,14 @@
 1. Update via `kpt`:
     ```bash
     # update to VERSION of the upstream chart auto-merging in changes
-    kpt pkg update chart@1.23.2 --strategy alpha-git-patch
+    kpt pkg update chart@1.25.1 --strategy alpha-git-patch
     ```
     Or if you'd like to pull down upstream to a fresh `DIR` and manually merge in the changes yourself:
     ```bash
     # get a fresh VERSION of the upstream chart to DIR
-    kpt pkg get "https://github.com/istio/istio.git/manifests/charts/gateway@1.23.2" ./fresh
+    kpt pkg get "https://github.com/istio/istio.git/manifests/charts/gateway@1.25.1" ./fresh
     ```
-1. Update version references for the Chart. `version` should be `<version>-bb.0` (ex: `1.22.2-bb.0`) and `appVersion` should be `<version>` (ex: `1.22.2`). Also validate that the BB annotation for the main Istio version is updated (leave the Tetrate version as-is unless you are updating those images).
+1. Update version references for the Chart. `version` should be `<version>-bb.0` (ex: `1.25.1-bb.0`) and `appVersion` should be `<version>` (ex: `1.25.1`). Also validate that the BB annotation for the main Istio version is updated (leave the Tetrate version as-is unless you are updating those images).
 1. Add a changelog entry for the update. At minimum mention updating the image versions.
 1. Update the readme following the [steps in Gluon](https://repo1.dso.mil/platform-one/big-bang/apps/library-charts/gluon/-/blob/master/docs/bb-package-readme.md).
 1. Open MR (or check the one that Renovate created for you) and validate that the pipeline is successful. Also follow the testing steps below for some manual confirmations.
@@ -40,7 +40,12 @@ This is a high-level list of modifications that Big Bang has made to the upstrea
     ```
 
 ## chart/templates/deployment.yaml
-- Added templating for Tetrate FIPs image integration lines 56-60.
+- Added templating for Tetrate FIPs image integration lines 65-67.
+```
+          {{- if .Values.enterprise }}
+          image: "{{ .Values.tidHub }}/{{ "proxyv2" }}:{{ .Values.tidTag }}"
+          {{- else }}
+```
 - Modified the following section under `spec.template.spec.containers.ports` to suppress warnings from Kiali as the gateway deployment was not listening on the same ports as its associated service:
 
 ```
@@ -50,17 +55,91 @@ This is a high-level list of modifications that Big Bang has made to the upstrea
             name: {{ $ports.name }}
           {{- end }}
 ```
+- Modified `spec.containers.image` away from using `auto` to speed up deployment
+```
+          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+```
 
 ## chart/values.yaml
-- Added enterprise boolean, tidHub and tidTag for Tetrate FIPs image integraton lines 157-160.
-- Prepended default `status-port` to `tcp-status-port` under `service.ports` section to appease Kiali warning.
-- Added gateway which is used to pass down required values into `chart/templates/bigbang/gateway.yaml`.
-- Added `networkPolicies`  section to enable default network policies and allow custom additional network policies to be added.
-- Added the following `mtls` section to enable mutual TLS used in `chart/templates/bigbang/peerAuthentication.yaml`:
+- Specified the `image` to use instead of using `auto`
+```
+  # Setting ironbank image
+  image:
+    repo: registry1.dso.mil/ironbank/opensource/istio/proxyv2
+    tag: 1.25.1
+```
+- Changed `imagePullSecrets` to `private-registry`
+```
+  imagePullSecrets:
+    - name: private-registry
+```
 
+- Added `enterprise` boolean, tidHub and tidTag for Tetrate FIPs image integration
+```
+# If enterprise is set to true FIPs Tetrate Image Distro images are used
+enterprise: false
+tidHub: registry1.dso.mil/ironbank/tetrate/istio
+tidTag: 1.25.1-tetratefips0
+```
+
+- Changed `status-port` to `tcp-status-port` under `service.ports` section to appease Kiali warning.
+- Changed the `targetPort`s under `service.ports` from 80 and 443 to 8080 and 8443.
+
+
+- Added default gateway which is used to pass down required values into `chart/templates/bigbang/gateway.yaml`.
+```
+# Settings for istio gateway
+gateway:
+  servers:
+    - hosts:
+        - '*.dev.bigbang.mil'
+      port:
+        name: http
+        number: 8080
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - '*.dev.bigbang.mil'
+      port:
+        name: https
+        number: 8443
+        protocol: HTTPS
+      tls:
+        credentialName: public-cert
+        mode: SIMPLE
+```
+
+- Added `networkPolicies`  section to enable default network policies and allow custom additional network policies to be added.
+```
+networkPolicies:
+  enabled: true
+  additionalPolicies: []
+```
+
+- Added the following `mtls` section to enable mutual TLS used in `chart/templates/bigbang/peerAuthentication.yaml`:
 ```
 mtls:
   # -- STRICT = Allow only mutual TLS traffic,
   # PERMISSIVE = Allow both plain text and mutual TLS traffic
   mode: STRICT
+```
+
+- Move the `service:` section out from the top level `_internal_defaults_do_not_set:` to be it's own top-level section. See below for an explanation:
+  - https://github.com/istio/istio/commit/be032022974479aa27a9a669b9f535ddf4743937
+  - https://github.com/istio/istio/issues/51458
+
+## chart/templates/_helpers.tpl
+Replaced:
+```
+{{- if .Values.serviceAccount.create }}
+{{- .Values.serviceAccount.name | default (include "gateway.name" .)    }}
+{{- else }}
+```
+...with...
+```
+{{- if .Values.serviceAccount.create }}
+{{- $defaultSericeAccount := printf "%s-%s" (include "gateway.name" .) "ingressgateway-service-account" -}}
+{{- .Values.serviceAccount.name | default $defaultSericeAccount }}
+{{- else }}
 ```

@@ -2,8 +2,8 @@ apiVersion: v2
 name: gateway
 description: Helm chart for deploying Istio gateways
 type: application
-version: 1.23.3-bb.3
-appVersion: 1.23.3
+version: 1.25.1-bb.0
+appVersion: 1.25.1
 sources:
 - https://github.com/istio/istio
 icon: https://istio.io/latest/favicons/android-192x192.png
@@ -13,4 +13,4 @@ keywords:
 annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/upstreamReleaseNotesMarkdown: |
-    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.23.2/announcing-1.23.2)
+    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.25.x/announcing-1.25)
