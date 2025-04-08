@@ -14,3 +14,6 @@ annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.25.x/announcing-1.25)
+  helm.sh/images: | 
+    - name: proxy
+      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.25.1
