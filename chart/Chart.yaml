@@ -2,7 +2,7 @@ apiVersion: v2
 name: gateway
 description: Helm chart for deploying Istio gateways
 type: application
-version: 1.25.1-bb.1
+version: 1.25.1-bb.2
 appVersion: 1.25.1
 dependencies:
   - name: gateway
@@ -18,7 +18,7 @@ keywords:
 annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/upstreamReleaseNotesMarkdown: |
-    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/1.25.x/announcing-1.25)
+    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/)
   helm.sh/images: |
     - name: proxy
       image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.25.1
