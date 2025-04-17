@@ -27,7 +27,9 @@ istio:
   enabled: false
 istioOperator:
   enabled: false
-istioCore:
+istioCRDs:
+  enabled: true
+istiod:
   enabled: true
 istioGateway:
   enabled: true

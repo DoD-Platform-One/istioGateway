@@ -1,6 +1,3 @@
-{{/*
-Only create if it doesn't already exist in the namespace
-*/}}
 {{- if not (lookup "security.istio.io/v1beta1" "PeerAuthentication" "istio-gateway" "default-istio-gateway") }}
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
@@ -11,3 +8,4 @@ spec:
   mtls:
     mode: {{ .Values.mtls.mode }}
 {{- end }}
+

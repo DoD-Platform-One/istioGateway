@@ -4,12 +4,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.25.1-bb.2] - 2025-04-15
+
+### Changed
+
+- Refactored chart to passthrough pattern
+
 ## [1.25.1-bb.1] - 2025-04-09
 
 ### Added
 
 - Readme updated for `enterprise` value removal.
-
 
 ## [1.25.1-bb.0] - 2025-04-02
 
@@ -50,7 +55,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Updated ports in gateway template
-- Updated service account name default in _helpers.tpl
+- Updated service account name default in \_helpers.tpl
 
 ## [1.23.2-bb.2] - 2024-12-20
 

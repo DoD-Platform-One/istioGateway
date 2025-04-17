@@ -1,6 +1,33 @@
-# "_internal_defaults_do_not_set" is a workaround for Helm limitations. Users should NOT set "._internal_defaults_do_not_set" explicitly, but rather directly set the fields internally.
-# For instance, instead of `--set _internal_defaults_do_not_set.foo=bar``, just set `--set foo=bar`.
-_internal_defaults_do_not_set:
+mtls:
+  # -- STRICT = Allow only mutual TLS traffic,
+  # PERMISSIVE = Allow both plain text and mutual TLS traffic
+  mode: STRICT
+
+networkPolicies:
+  enabled: true
+  additionalPolicies: []
+
+gateway:
+  servers:
+    - hosts:
+        - '*.dev.bigbang.mil'
+      port:
+        name: http
+        number: 8080
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - '*.dev.bigbang.mil'
+      port:
+        name: https
+        number: 8443
+        protocol: HTTPS
+      tls:
+        credentialName: public-cert
+        mode: SIMPLE
+
+upstream:
   # Name allows overriding the release name. Generally this should not be set
   name: ""
   # revision declares which revision this gateway is a part of
@@ -38,6 +65,32 @@ _internal_defaults_do_not_set:
   # On Kubernetes 1.22+, this only requires the `net.ipv4.ip_unprivileged_port_start` sysctl.
   securityContext: {}
   containerSecurityContext: {}
+
+  service:
+    # Type of service. Set to "None" to disable the service entirely
+    type: LoadBalancer
+    ports:
+    - name: tcp-status-port
+      port: 15021
+      protocol: TCP
+      targetPort: 15021
+    - name: http2
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 8443
+    annotations: {}
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    externalTrafficPolicy: ""
+    externalIPs: []
+    ipFamilyPolicy: ""
+    ipFamilies: []
+    ## Whether to automatically allocate NodePorts (only for LoadBalancers).
+    # allocateLoadBalancerNodePorts: false
 
   resources:
     requests:
@@ -88,17 +141,11 @@ _internal_defaults_do_not_set:
   # If specified, the gateway will act as a network gateway for the given network.
   networkGateway: ""
 
-  # Setting ironbank image
-  image:
-    repo: registry1.dso.mil/ironbank/opensource/istio/proxyv2
-    tag: 1.25.1
-
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent
   imagePullPolicy: ""
 
-  imagePullSecrets:
-    - name: private-registry
+  imagePullSecrets: []
 
   # This value is used to configure a Kubernetes PodDisruptionBudget for the gateway.
   #
@@ -146,58 +193,3 @@ _internal_defaults_do_not_set:
   # Refer to https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
   # for more detail.
   priorityClassName: ""
-  
-mtls:
-  # -- STRICT = Allow only mutual TLS traffic,
-  # PERMISSIVE = Allow both plain text and mutual TLS traffic
-  mode: STRICT
-
-networkPolicies:
-  enabled: true
-  additionalPolicies: []
-
-# Settings for istio gateway
-gateway:
-  servers:
-    - hosts:
-        - '*.dev.bigbang.mil'
-      port:
-        name: http
-        number: 8080
-        protocol: HTTP
-      tls:
-        httpsRedirect: true
-    - hosts:
-        - '*.dev.bigbang.mil'
-      port:
-        name: https
-        number: 8443
-        protocol: HTTPS
-      tls:
-        credentialName: public-cert
-        mode: SIMPLE
-
-# bb defaults
-service:
-  # Type of service. Set to "None" to disable the service entirely
-  type: LoadBalancer
-  ports:
-  - name: tcp-status-port
-    port: 15021
-    protocol: TCP
-    targetPort: 15021
-  - name: http2
-    port: 80
-    protocol: TCP
-    targetPort: 8080
-  - name: https
-    port: 443
-    protocol: TCP
-    targetPort: 8443
-  annotations: {}
-  loadBalancerIP: ""
-  loadBalancerSourceRanges: []
-  externalTrafficPolicy: ""
-  externalIPs: []
-  ipFamilyPolicy: ""
-  ipFamilies: []
