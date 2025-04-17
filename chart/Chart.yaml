@@ -2,7 +2,7 @@ apiVersion: v2
 name: gateway
 description: Helm chart for deploying Istio gateways
 type: application
-version: 1.25.1-bb.2
+version: 1.25.1-bb.3
 appVersion: 1.25.1
 dependencies:
   - name: gateway

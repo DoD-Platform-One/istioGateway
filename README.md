@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.25.1-bb.2](https://img.shields.io/badge/Version-1.25.1--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.25.1](https://img.shields.io/badge/AppVersion-1.25.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 1.25.1-bb.3](https://img.shields.io/badge/Version-1.25.1--bb.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.25.1](https://img.shields.io/badge/AppVersion-1.25.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -105,6 +105,7 @@ helm install gateway chart/
 | upstream.minReadySeconds | string | `nil` |  |
 | upstream.readinessProbe | object | `{}` |  |
 | upstream.labels."istio.io/dataplane-mode" | string | `"none"` |  |
+| upstream.labels.istio | string | `"ingressgateway"` |  |
 | upstream.annotations | object | `{}` |  |
 | upstream.nodeSelector | object | `{}` |  |
 | upstream.tolerations | list | `[]` |  |
