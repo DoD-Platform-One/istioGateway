@@ -2,12 +2,12 @@ apiVersion: v2
 name: gateway
 description: Helm chart for deploying Istio gateways
 type: application
-version: 1.25.1-bb.3
-appVersion: 1.25.1
+version: 1.25.2-bb.0
+appVersion: 1.25.2
 dependencies:
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.25.1
+    version: 1.25.2
     alias: upstream
 sources:
   - https://github.com/istio/istio
@@ -21,4 +21,4 @@ annotations:
     - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/)
   helm.sh/images: |
     - name: proxy
-      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.25.1
+      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.25.2
