@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.25.2-bb.1] (2025-04-22)
+
+### Changed
+
+- Updated chart meta and added annotations
+
 ## [1.25.2-bb.0] (2025-04-18)
 
 ### Changed
