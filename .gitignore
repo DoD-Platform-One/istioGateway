@@ -1,6 +1,7 @@
 .idea/
 certs/
 
+._*
 .DS_Store
 tmp/
 

@@ -1,24 +1,28 @@
 apiVersion: v2
 name: gateway
-description: Helm chart for deploying Istio gateways
-type: application
-version: 1.25.2-bb.0
+version: 1.25.2-bb.1
 appVersion: 1.25.2
+description: Helm chart for deploying Istio gateways
+icon: https://istio.io/latest/favicons/android-192x192.png
+keywords:
+  - istio
+  - istiod
+  - gateways
+sources:
+  - https://github.com/istio/istio
 dependencies:
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
     version: 1.25.2
     alias: upstream
-sources:
-  - https://github.com/istio/istio
-icon: https://istio.io/latest/favicons/android-192x192.png
-keywords:
-  - istio
-  - gateways
 annotations:
+  bigbang.dev/passthrough: "true"
+  bigbang.dev/passthrough-toplevel-key: upstream
   bigbang.dev/maintenanceTrack: bb_integrated
-  bigbang.dev/upstreamReleaseNotesMarkdown: |
-    - [Find our upstream chart's CHANGELOG here](https://istio.io/latest/news/releases/)
+  bigbang.dev/applicationVersions: |
+    - Istio: 1.25.2
   helm.sh/images: |
-    - name: proxy
+    - name: proxyv2
       image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.25.2
+  bigbang.dev/upstreamReleaseNotesMarkdown: |
+    - [Find upstream chart's release notes and CHANGELOG here](https://istio.io/latest/news/releases)
