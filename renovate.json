@@ -1,50 +1,63 @@
 {
-    "baseBranches": ["main"],
-    "configWarningReuseIssue": false,
-    "dependencyDashboard": true,
-    "dependencyDashboardHeader": "- [ ] Sync upstream helm chart version with updated dependencies.",
-    "dependencyDashboardTitle": "Renovate: Upgrade Istio Gateway Package Dependencies",
-    "draftPR": true,
-    "enabledManagers": ["regex"],
-    "labels": ["istioCore","Big Bang Core","Package Sustainment","kind::maintenance","renovate"],
-    "packageRules": [
-        {
-            "matchDatasources": ["docker"],
-            "groupName": "Ironbank",
-            "registryUrls": ["https://registry1.dso.mil"],
-            "postUpgradeTasks": {
-              "commands": [
-                  "match-chart-yaml-appversion",
-                  "regenerate-helm-docs",
-                  "bump-changelog '- {{{replace 'registry1.dso.mil/' '' depName}}} updated from {{{currentVersion}}} to {{{newVersion}}}'"
-              ],
-              "fileFilters": ["chart/Chart.yaml", "README.md", "CHANGELOG.md"]
-            }
-        },
-        {
-            "matchPackageNames": ["registry1.dso.mil/ironbank/big-bang/base"],
-            "allowedVersions": "!/8.4/"
-        }       
+  "extends": ["local>platform-one/big-bang/pipeline-templates/renovate-runner"],
+  "enabledManagers": ["helmv3", "regex"],
+  "labels": [
+    "istioGateway",
+    "Big Bang Core",
+    "Package Sustainment",
+    "kind::maintenance",
+    "renovate"
+  ],
+  "postUpdateOptions": ["helmUpdateSubChartArchives"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update chart version to match upstream; append -bb.0",
+      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "matchStrings": ["version:\\s+(?<currentValue>.+)-bb\\.\\d+"],
+      "autoReplaceStringTemplate": "version: {{newValue}}-bb.0",
+      "depNameTemplate": "gateway",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://istio-release.storage.googleapis.com/charts"
+    },
+    {
+      "customType": "regex",
+      "description": "Update chart appVersion to match upstream",
+      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s+(?<currentValue>.+)"],
+      "autoReplaceStringTemplate": "appVersion: {{newValue}}",
+      "depNameTemplate": "gateway",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://istio-release.storage.googleapis.com/charts"
+    },
+    {
+      "customType": "regex",
+      "description": "Update big bang application versions",
+      "fileMatch": ["^chart/Chart.yaml$"],
+      "matchStrings": ["- Istio:\\s+(?<currentValue>.+)"],
+      "autoReplaceStringTemplate": "- Istio: {{newValue}}",
+      "depNameTemplate": "gateway",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://istio-release.storage.googleapis.com/charts"
+    },
+    {
+      "customType": "regex",
+      "description": "Update proxyv2 image to match upstream",
+      "fileMatch": ["^chart/Chart.yaml$"],
+      "matchStrings": [
+        "image: registry1.dso.mil\\/ironbank\\/opensource\\/istio\\/proxyv2:(?<currentValue>.+)"
+      ],
+      "autoReplaceStringTemplate": "image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:{{newValue}}",
+      "depNameTemplate": "istiod",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://istio-release.storage.googleapis.com/charts"
+    }
+  ],
+  "postUpgradeTasks": {
+    "commands": [
+      "regenerate-helm-docs",
+      "bump-changelog '- {{{replace 'registry1.dso.mil/' '' depName}}} updated from {{{currentVersion}}} to {{{newVersion}}}'"
     ],
-    "regexManagers": [
-        {
-            "fileMatch": [
-              "^chart/values\\.yaml$"
-            ],
-            "matchStrings": [
-              "tag:\\s+(?<currentValue>.+)"
-            ],
-            "depNameTemplate": "registry1.dso.mil/ironbank/opensource/istio/proxyv2",
-            "datasourceTemplate": "docker"
-        },      
-        {
-            "fileMatch": ["^chart/Chart\\.yaml$"],
-            "matchStrings": [
-                "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
-            ],
-            "datasourceTemplate": "docker"
-        }
-    ],
-    "separateMajorMinor": false,
-    "postUpdateOptions": ["helmUpdateSubChartArchives"]
+    "fileFilters": ["chart/Chart.yaml", "README.md", "CHANGELOG.md"]
+  }
 }
