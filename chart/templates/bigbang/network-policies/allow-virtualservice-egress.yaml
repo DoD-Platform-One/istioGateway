@@ -1,13 +1,10 @@
-{{/*
-Allow all egress traffic to virtual services from ingressgateway as there is no simple way of knowing all ports in advance
-*/}}
-{{- if and .Values.networkPolicies.enabled (not (lookup "networking.k8s.io/v1" "NetworkPolicy" "istio-gateway" "allow-virtualservice-egress")) }}
+{{- if .Values.networkPolicies.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   annotations:
     helm.sh/resource-policy: keep
-  name: allow-virtualservice-egress
+  name: allow-{{ .Release.Name }}-virtualservice-egress
   namespace: "{{ .Release.Namespace }}"
 spec:
   egress:
@@ -15,6 +12,7 @@ spec:
       - namespaceSelector: {}
   podSelector:
     matchLabels:
+      app: {{ include "gateway.name" . }}
       istio: ingressgateway
   policyTypes:
     - Egress
