@@ -1,6 +1,6 @@
 apiVersion: v2
 name: istio-gateway
-version: 1.25.3-bb.2
+version: 1.25.3-bb.3
 appVersion: 1.25.3
 description: Helm chart for deploying Istio gateways
 icon: https://istio.io/latest/favicons/android-192x192.png
