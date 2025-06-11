@@ -1,11 +1,12 @@
-{{- if not (lookup "security.istio.io/v1beta1" "PeerAuthentication" "istio-gateway" "default-istio-gateway") }}
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
-  name: default-istio-gateway
+  name: default-{{ .Release.Name }}
   namespace: istio-gateway
 spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+      app: {{ include "gateway.name" . }}
   mtls:
     mode: {{ .Values.mtls.mode }}
-{{- end }}
-
