@@ -1,7 +1,7 @@
 apiVersion: v2
-name: gateway
-version: 1.25.3-bb.4
-appVersion: 1.25.3
+name: istio-gateway
+version: 1.26.1-bb.0
+appVersion: 1.26.1
 description: Helm chart for deploying Istio gateways
 icon: https://istio.io/latest/favicons/android-192x192.png
 keywords:
@@ -13,16 +13,16 @@ sources:
 dependencies:
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.25.3
+    version: 1.26.1
     alias: upstream
 annotations:
   bigbang.dev/passthrough: "true"
   bigbang.dev/passthrough-toplevel-key: upstream
   bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/applicationVersions: |
-    - Istio: 1.25.3
+    - Istio: 1.26.1
   helm.sh/images: |
     - name: proxyv2
-      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.25.3
+      image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.26.1
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream chart's release notes and CHANGELOG here](https://istio.io/latest/news/releases)
