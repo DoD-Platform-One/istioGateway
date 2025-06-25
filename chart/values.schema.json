@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Istio Gateway Values Schema",
+  "type": "object",
+  "properties": {
+    "mtls": {
+      "type": "object",
+      "properties": {
+        "mode": { "type": "string", "enum": ["STRICT", "PERMISSIVE"] }
+      },
+      "additionalProperties": false
+    },
+    "networkPolicies": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "additionalPolicies": { "type": "array" },
+        "istioNamespaceSelector": {
+          "type": "object",
+          "properties": {
+            "egress": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "gateway": {
+      "type": "object",
+      "properties": {
+        "servers": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "upstream": {
+      "type": "object",
+      "description": "Istio Gateway Upstream",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
