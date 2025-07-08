@@ -3,9 +3,6 @@ kind: Gateway
 metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
-  labels:
-    helm.toolkit.fluxcd.io/name: istio
-    helm.toolkit.fluxcd.io/namespace: bigbang
 spec:
   selector:
     app: {{ .Release.Name }}
