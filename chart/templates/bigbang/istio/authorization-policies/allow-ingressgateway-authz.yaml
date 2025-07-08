@@ -2,7 +2,7 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: allow-{{ .Release.Name }}-authz-policy
-  namespace: istio-gateway
+  namespace: {{ .Release.Namespace }}
 spec:
   action: ALLOW
   rules:
