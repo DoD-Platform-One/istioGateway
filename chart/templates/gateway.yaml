@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: {{ .Release.Name }}
-  namespace: istio-gateway
+  namespace: {{ .Release.Namespace }}
   labels:
     helm.toolkit.fluxcd.io/name: istio
     helm.toolkit.fluxcd.io/namespace: bigbang
