@@ -56,7 +56,6 @@ helm install gateway chart/
 | gateway.servers[1].tls.credentialName | string | `"public-cert"` |  |
 | gateway.servers[1].tls.mode | string | `"SIMPLE"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.5"` |  |
 | waitJob.permissions.apiGroups[0] | string | `""` |  |
 | waitJob.permissions.apiGroups[1] | string | `"apps"` |  |
 | waitJob.permissions.resources[0] | string | `"pods"` |  |
@@ -65,8 +64,8 @@ helm install gateway chart/
 | waitJob.permissions.verbs[1] | string | `"list"` |  |
 | waitJob.permissions.verbs[2] | string | `"get"` |  |
 | waitJob.permissions.verbs[3] | string | `"watch"` |  |
-| upstream | object | `{"labels":{"istio":"ingressgateway"}}` | Values passed to the upstream istio gateway chart See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options |
-| upstream.labels.istio | string | `"ingressgateway"` | We set this label by default to more easily integrate other Big Bang components |
+| upstream | object | `{"labels":{"istio":"ingressgateway"}}` | Values passed to the upstream istio gateway chart. See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options. |
+| upstream.labels.istio | string | `"ingressgateway"` | We set this label by default to more easily integrate with other Big Bang components. |
 
 ## Contributing
 

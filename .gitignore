@@ -35,4 +35,6 @@ ignore/*
 # Local History for Visual Studio Code
 .history/
 
+# Helm LSP Artifacts
+**/.helm_ls_cache
 
