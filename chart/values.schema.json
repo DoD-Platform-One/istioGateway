@@ -18,7 +18,8 @@
         "istioNamespaceSelector": {
           "type": "object",
           "properties": {
-            "egress": { "type": "string" }
+            "egress": { "type": "string" },
+            "ingress": { "type": "string" }
           },
           "additionalProperties": false
         }
