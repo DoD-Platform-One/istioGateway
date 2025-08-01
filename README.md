@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.27.1-bb.0](https://img.shields.io/badge/Version-1.27.1--bb.0-informational?style=flat-square) ![AppVersion: 1.27.1](https://img.shields.io/badge/AppVersion-1.27.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 1.27.1-bb.1](https://img.shields.io/badge/Version-1.27.1--bb.1-informational?style=flat-square) ![AppVersion: 1.27.1](https://img.shields.io/badge/AppVersion-1.27.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -43,7 +43,7 @@ helm install gateway chart/
 |-----|------|---------|-------------|
 | mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
 | networkPolicies.enabled | bool | `true` |  |
-| networkPolicies.additionalPolicies | list | `[]` |  |
+| networkPolicies.prependReleaseName | bool | `true` |  |
 | gateway.servers[0].hosts[0] | string | `"*.dev.bigbang.mil"` |  |
 | gateway.servers[0].port.name | string | `"http"` |  |
 | gateway.servers[0].port.number | int | `8080` |  |
@@ -65,70 +65,8 @@ helm install gateway chart/
 | waitJob.permissions.verbs[1] | string | `"list"` |  |
 | waitJob.permissions.verbs[2] | string | `"get"` |  |
 | waitJob.permissions.verbs[3] | string | `"watch"` |  |
-| upstream.name | string | `""` |  |
-| upstream.revision | string | `""` |  |
-| upstream.replicaCount | string | `nil` |  |
-| upstream.kind | string | `"Deployment"` |  |
-| upstream.rbac.enabled | bool | `true` |  |
-| upstream.serviceAccount.create | bool | `true` |  |
-| upstream.serviceAccount.annotations | object | `{}` |  |
-| upstream.serviceAccount.name | string | `""` |  |
-| upstream.podAnnotations."prometheus.io/port" | string | `"15020"` |  |
-| upstream.podAnnotations."prometheus.io/scrape" | string | `"true"` |  |
-| upstream.podAnnotations."prometheus.io/path" | string | `"/stats/prometheus"` |  |
-| upstream.podAnnotations."inject.istio.io/templates" | string | `"gateway"` |  |
-| upstream.podAnnotations."sidecar.istio.io/inject" | string | `"true"` |  |
-| upstream.securityContext | object | `{}` |  |
-| upstream.containerSecurityContext | object | `{}` |  |
-| upstream.service.type | string | `"LoadBalancer"` |  |
-| upstream.service.ports[0].name | string | `"tcp-status-port"` |  |
-| upstream.service.ports[0].port | int | `15021` |  |
-| upstream.service.ports[0].protocol | string | `"TCP"` |  |
-| upstream.service.ports[0].targetPort | int | `15021` |  |
-| upstream.service.ports[1].name | string | `"http2"` |  |
-| upstream.service.ports[1].port | int | `80` |  |
-| upstream.service.ports[1].protocol | string | `"TCP"` |  |
-| upstream.service.ports[1].targetPort | int | `8080` |  |
-| upstream.service.ports[2].name | string | `"https"` |  |
-| upstream.service.ports[2].port | int | `443` |  |
-| upstream.service.ports[2].protocol | string | `"TCP"` |  |
-| upstream.service.ports[2].targetPort | int | `8443` |  |
-| upstream.service.annotations | object | `{}` |  |
-| upstream.service.loadBalancerIP | string | `""` |  |
-| upstream.service.loadBalancerSourceRanges | list | `[]` |  |
-| upstream.service.externalTrafficPolicy | string | `""` |  |
-| upstream.service.externalIPs | list | `[]` |  |
-| upstream.service.ipFamilyPolicy | string | `""` |  |
-| upstream.service.ipFamilies | list | `[]` |  |
-| upstream.resources.requests.cpu | string | `"100m"` |  |
-| upstream.resources.requests.memory | string | `"128Mi"` |  |
-| upstream.resources.limits.cpu | string | `"2000m"` |  |
-| upstream.resources.limits.memory | string | `"1024Mi"` |  |
-| upstream.autoscaling.enabled | bool | `true` |  |
-| upstream.autoscaling.minReplicas | int | `1` |  |
-| upstream.autoscaling.maxReplicas | int | `5` |  |
-| upstream.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| upstream.autoscaling.targetMemoryUtilizationPercentage | object | `{}` |  |
-| upstream.autoscaling.autoscaleBehavior | object | `{}` |  |
-| upstream.env | object | `{}` |  |
-| upstream.strategy | object | `{}` |  |
-| upstream.minReadySeconds | string | `nil` |  |
-| upstream.readinessProbe | object | `{}` |  |
-| upstream.labels."istio.io/dataplane-mode" | string | `"none"` |  |
-| upstream.labels.istio | string | `"ingressgateway"` |  |
-| upstream.annotations | object | `{}` |  |
-| upstream.nodeSelector | object | `{}` |  |
-| upstream.tolerations | list | `[]` |  |
-| upstream.topologySpreadConstraints | list | `[]` |  |
-| upstream.affinity | object | `{}` |  |
-| upstream.networkGateway | string | `""` |  |
-| upstream.imagePullPolicy | string | `""` |  |
-| upstream.imagePullSecrets | list | `[]` |  |
-| upstream.podDisruptionBudget | object | `{}` |  |
-| upstream.terminationGracePeriodSeconds | int | `30` |  |
-| upstream.volumes | list | `[]` |  |
-| upstream.volumeMounts | list | `[]` |  |
-| upstream.priorityClassName | string | `""` |  |
+| upstream | object | `{"labels":{"istio":"ingressgateway"}}` | Values passed to the upstream istio gateway chart See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options |
+| upstream.labels.istio | string | `"ingressgateway"` | We set this label by default to more easily integrate other Big Bang components |
 
 ## Contributing
 

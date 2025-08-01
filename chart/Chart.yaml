@@ -1,6 +1,6 @@
 apiVersion: v2
 name: gateway
-version: 1.27.1-bb.0
+version: 1.27.1-bb.1
 appVersion: 1.27.1
 description: Helm chart for deploying Istio gateways
 icon: https://istio.io/latest/favicons/android-192x192.png
@@ -12,7 +12,7 @@ sources:
   - https://github.com/istio/istio
 dependencies:
   - name: gluon
-    version: "0.9.0"
+    version: 0.9.0
     repository: "oci://registry1.dso.mil/bigbang"
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
