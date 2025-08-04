@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.26.2-bb.1](https://img.shields.io/badge/Version-1.26.2--bb.1-informational?style=flat-square) ![AppVersion: 1.26.2](https://img.shields.io/badge/AppVersion-1.26.2-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 1.26.3-bb.0](https://img.shields.io/badge/Version-1.26.3--bb.0-informational?style=flat-square) ![AppVersion: 1.26.3](https://img.shields.io/badge/AppVersion-1.26.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -55,6 +55,16 @@ helm install gateway chart/
 | gateway.servers[1].port.protocol | string | `"HTTPS"` |  |
 | gateway.servers[1].tls.credentialName | string | `"public-cert"` |  |
 | gateway.servers[1].tls.mode | string | `"SIMPLE"` |  |
+| waitJob.enabled | bool | `true` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.5"` |  |
+| waitJob.permissions.apiGroups[0] | string | `""` |  |
+| waitJob.permissions.apiGroups[1] | string | `"apps"` |  |
+| waitJob.permissions.resources[0] | string | `"pods"` |  |
+| waitJob.permissions.resources[1] | string | `"deployments"` |  |
+| waitJob.permissions.verbs[0] | string | `"patch"` |  |
+| waitJob.permissions.verbs[1] | string | `"list"` |  |
+| waitJob.permissions.verbs[2] | string | `"get"` |  |
+| waitJob.permissions.verbs[3] | string | `"watch"` |  |
 | upstream.name | string | `""` |  |
 | upstream.revision | string | `""` |  |
 | upstream.replicaCount | string | `nil` |  |

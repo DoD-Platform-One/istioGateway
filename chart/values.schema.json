@@ -38,6 +38,43 @@
       },
       "additionalProperties": true
     },
+    "waitJob": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "scripts": {
+          "type": "object",
+          "properties": {
+            "image": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "apiGroups": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "resources": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "verbs": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "gluon": {
+      "description": "Values for the gluon subchart.",
+      "type": "object",
+      "additionalProperties": true
+    },
     "upstream": {
       "type": "object",
       "description": "Istio Gateway Upstream",

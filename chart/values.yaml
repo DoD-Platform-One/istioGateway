@@ -27,6 +27,23 @@ gateway:
         credentialName: public-cert
         mode: SIMPLE
 
+waitJob:
+  enabled: true
+  scripts:
+    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.5
+  permissions:
+    apiGroups:
+    - ''
+    - "apps"
+    resources:
+    - pods
+    - deployments
+    verbs:
+    - patch
+    - list
+    - get
+    - watch
+
 upstream:
   # Name allows overriding the release name. Generally this should not be set
   name: ""
