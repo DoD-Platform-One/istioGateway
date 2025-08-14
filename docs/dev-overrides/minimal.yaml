@@ -2,17 +2,12 @@
 # Notably, the following have not been disabled
 # - networkPolicies - not disabled due to ease of use when deploying via k3d_dev
 
-istioBase:
+istioCRDs:
   enabled: true
 istiod:
   enabled: true
 istioGateway:
   enabled: true
-
-istio:
-  enabled: false
-istioOperator:
-  enabled: false
 
 kiali:
   enabled: true
@@ -46,9 +41,6 @@ loki:
   enabled: false
 
 tempo:
-  enabled: false
-
-promtail:
   enabled: false
 
 monitoring:
