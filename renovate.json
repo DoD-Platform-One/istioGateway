@@ -5,7 +5,7 @@
   ],
   "enabledManagers": [
     "helmv3",
-    "regex"
+    "custom.regex"
   ],
   "labels": [
     "istioGateway",
