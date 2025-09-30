@@ -1,23 +1,27 @@
 apiVersion: v2
 name: gateway
-version: 1.27.1-bb.0
+version: 1.27.1-bb.1
 appVersion: 1.27.1
 description: Helm chart for deploying Istio gateways
 icon: https://istio.io/latest/favicons/android-192x192.png
 keywords:
-  - istio
-  - istiod
-  - gateways
+- istio
+- istiod
+- gateways
 sources:
-  - https://github.com/istio/istio
+- https://github.com/istio/istio
 dependencies:
   - name: gluon
-    version: "0.9.0"
+    version: 0.9.0
     repository: "oci://registry1.dso.mil/bigbang"
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
     version: 1.27.1
     alias: upstream
+  - name: bb-common
+    version: 0.8.0
+    repository: "oci://registry1.dso.mil/bigbang"
+    import-values: []
 annotations:
   bigbang.dev/passthrough: "true"
   bigbang.dev/passthrough-toplevel-key: upstream
@@ -27,7 +31,5 @@ annotations:
   helm.sh/images: |
     - name: proxyv2
       image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.27.1
-    - name: kubectl
-      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.5
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream chart's release notes and CHANGELOG here](https://istio.io/latest/news/releases)
