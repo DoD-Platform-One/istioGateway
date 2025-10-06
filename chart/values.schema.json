@@ -854,6 +854,9 @@
         "enabled": {
           "type": "boolean"
         },
+        "image": {
+          "type": "string"
+        },
         "scripts": {
           "type": "object",
           "properties": {
