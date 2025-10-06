@@ -64,7 +64,7 @@ helm install gateway chart/
 | waitJob.permissions.verbs[1] | string | `"list"` |  |
 | waitJob.permissions.verbs[2] | string | `"get"` |  |
 | waitJob.permissions.verbs[3] | string | `"watch"` |  |
-| upstream | object | `{"labels":{"istio":"ingressgateway"}}` | Values passed to the upstream istio gateway chart. See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options. |
+| upstream | object | `{"labels":{"istio":"ingressgateway"},"service":{"ports":[{"name":"tcp-status-port","port":15021,"protocol":"TCP","targetPort":15021},{"name":"http2","port":80,"protocol":"TCP","targetPort":8080},{"name":"https","port":443,"protocol":"TCP","targetPort":8443}],"type":"LoadBalancer"}}` | Values passed to the upstream istio gateway chart. See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options. |
 | upstream.labels.istio | string | `"ingressgateway"` | We set this label by default to more easily integrate with other Big Bang components. |
 
 ## Contributing
