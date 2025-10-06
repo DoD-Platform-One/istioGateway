@@ -19,7 +19,7 @@ dependencies:
     version: 1.27.1
     alias: upstream
   - name: bb-common
-    version: 0.8.2
+    version: 0.8.0
     repository: "oci://registry1.dso.mil/bigbang"
     import-values: []
 annotations:
