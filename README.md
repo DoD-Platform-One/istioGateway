@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # gateway
 
-![Version: 1.27.1-bb.1](https://img.shields.io/badge/Version-1.27.1--bb.1-informational?style=flat-square) ![AppVersion: 1.27.1](https://img.shields.io/badge/AppVersion-1.27.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 1.27.1-bb.2](https://img.shields.io/badge/Version-1.27.1--bb.2-informational?style=flat-square) ![AppVersion: 1.27.1](https://img.shields.io/badge/AppVersion-1.27.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -64,7 +64,7 @@ helm install gateway chart/
 | waitJob.permissions.verbs[1] | string | `"list"` |  |
 | waitJob.permissions.verbs[2] | string | `"get"` |  |
 | waitJob.permissions.verbs[3] | string | `"watch"` |  |
-| upstream | object | `{"labels":{"istio":"ingressgateway"}}` | Values passed to the upstream istio gateway chart. See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options. |
+| upstream | object | `{"labels":{"istio":"ingressgateway"},"service":{"ports":[{"name":"tcp-status-port","port":15021,"protocol":"TCP","targetPort":15021},{"name":"http2","port":80,"protocol":"TCP","targetPort":8080},{"name":"https","port":443,"protocol":"TCP","targetPort":8443}],"type":"LoadBalancer"}}` | Values passed to the upstream istio gateway chart. See [the upstream chart's values.yaml](https://github.com/istio/istio/blob/master/manifests/charts/gateway/values.yaml) for configuration options. |
 | upstream.labels.istio | string | `"ingressgateway"` | We set this label by default to more easily integrate with other Big Bang components. |
 
 ## Contributing
