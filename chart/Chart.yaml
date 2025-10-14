@@ -12,14 +12,14 @@ sources:
 - https://github.com/istio/istio
 dependencies:
   - name: gluon
-    version: 0.9.2
+    version: 0.9.4
     repository: "oci://registry1.dso.mil/bigbang"
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
     version: 1.27.2
     alias: upstream
   - name: bb-common
-    version: 0.8.0
+    version: 0.8.2
     repository: "oci://registry1.dso.mil/bigbang"
     import-values: []
 annotations:
