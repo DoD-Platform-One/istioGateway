@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - gateway updated from 1.27.1 to 1.27.2
+- gluon updated from 0.9.2 to 0.9.4
+- bb-common updated from 0.8.0 to 0.8.2
 
 ## [1.27.1-bb.2] (2025-09-18)
 
