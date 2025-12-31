@@ -1,7 +1,3 @@
-istio:
-  ambient:
-    enabled: false
-
 mtls:
   # -- STRICT = Allow only mutual TLS traffic,
   # PERMISSIVE = Allow both plain text and mutual TLS traffic
