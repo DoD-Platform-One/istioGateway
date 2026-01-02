@@ -12,11 +12,11 @@ sources:
 - https://github.com/istio/istio
 dependencies:
   - name: gluon
-    version: 0.9.7
+    version: 0.9.6
     repository: "oci://registry1.dso.mil/bigbang"
   - name: gateway
     repository: https://istio-release.storage.googleapis.com/charts
-    version: 1.28.2
+    version: 1.28.0
     alias: upstream
   - name: bb-common
     version: 0.12.1
@@ -27,7 +27,7 @@ annotations:
   bigbang.dev/passthrough-toplevel-key: upstream
   bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/applicationVersions: |
-    - Istio: 1.28.2
+    - Istio: 1.28.0
   helm.sh/images: |
     - name: proxyv2
       image: registry1.dso.mil/ironbank/opensource/istio/proxyv2:1.28.2
